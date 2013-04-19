@@ -5,6 +5,7 @@ module Berkshelf
     class Plugin < ::Vagrant.plugin("2")
       class << self
         def provision(hook)
+          hook.before(::Vagrant::Action::Builtin::Provision, Berkshelf::Vagrant::Action.setup)
           hook.after(::Vagrant::Action::Builtin::Provision, Berkshelf::Vagrant::Action.upload)
           hook.after(::Vagrant::Action::Builtin::Provision, Berkshelf::Vagrant::Action.install)
 
